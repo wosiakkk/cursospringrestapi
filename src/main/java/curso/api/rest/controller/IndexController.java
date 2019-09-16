@@ -71,6 +71,13 @@ public class IndexController {
 	 * todos os atributos do json e do usuário sejam iguais em quantidade e nome.*/
 	@PostMapping(value = "/", produces = "application/json")
 	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario){
+		/*Associando os telefones que serão salvos em conjunto com o usuário.
+		 * Posi o framework está capturando e setando os telefones porém
+		 * não está colocando a fk relacionado ao id do usu´[ario, com isso
+		 * será setando de forma manual*/
+		
+		usuario.getTelefones().forEach(t-> t.setUsuario(usuario));
+		
 		//recebendo o usuário que será salvo
 		Usuario usuarioSalvo = usuarioRepository.save(usuario);
 		//dando o retorno e informando ostatus da requisição
