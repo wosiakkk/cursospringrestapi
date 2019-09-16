@@ -87,6 +87,14 @@ public class IndexController {
 	/*O metodo PUT é utulizada para atualizar dados.*/
 	@PutMapping(value = "/", produces = "application/json")
 	public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario){
+		/*Associando os telefones que serão salvos em conjunto com o usuário.
+		 * Posi o framework está capturando e setando os telefones porém
+		 * não está colocando a fk relacionado ao id do usuário, com isso
+		 * será setando de forma manual*/
+		
+		usuario.getTelefones().forEach(t-> t.setUsuario(usuario));
+		
+		
 		/*o método save, quando não recebe um id identifica queé apra salvar
 		 * um novo objeto, entretando quando recebe ele compreende que irá fazer 
 		 * um update. Por isso sempre que for realizado um put,
